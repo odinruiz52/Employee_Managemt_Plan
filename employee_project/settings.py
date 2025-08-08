@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import environ
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +29,7 @@ environ.Env.read_env(BASE_DIR / '.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 ## SECRET_KEY = 'django-insecure-7r_!ke25xekkx*a=ml!(m6p$athh+-m+nx&1=*7pjwk!m0@j3='
-SECRET_KEY = 'django-insecure-7r_!ke25xekkx*a=ml!(m6p$athh+-m+nx&1=*7pjwk!m0@j3='
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 ##DEBUG = True
@@ -153,4 +154,21 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',  # require auth by default
     ],
+}
+
+# Make Swagger show a Bearer token input for JWT
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {                      # name shown in Swagger
+            'type': 'apiKey',
+            'name': 'Authorization',     # HTTP header name
+            'in': 'header',
+            'description': 'JWT Authorization header using the Bearer scheme. Example: "Bearer {token}"'
+        }
+    }
+}
+# Simple JWT settings
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
