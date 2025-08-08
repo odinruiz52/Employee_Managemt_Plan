@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include  # Needed to include app URL files
+from django.urls import path, include, re_path  # Needed to include app URL files
 from rest_framework import permissions  # For Swagger UI permissions
 from drf_yasg.views import get_schema_view  # Swagger schema view
 from drf_yasg import openapi  # OpenAPI info
@@ -12,6 +12,8 @@ schema_view = get_schema_view(
         title="Employee Management API",
         default_version='v1',
         description="API documentation for Employee Management System",
+        contact=openapi.Contact(email="dev@example.com"),
+        license=openapi.License(name="MIT"),
     ),
     public=True,
     permission_classes=[permissions.AllowAny],
@@ -26,5 +28,8 @@ urlpatterns = [
     path('api/auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # login
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # Swagger UI Docs
+    # Swagger & Redoc
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]

@@ -16,6 +16,14 @@ class DepartmentViewSet(viewsets.ModelViewSet):
     ordering = ['id']  # default ordering
 
 class EmployeeViewSet(viewsets.ModelViewSet):
+    """
+    list: List employees (paginated). Supports ?department=, ?date_of_joining=, ?ordering=.
+    create: Create an employee (JWT required). Provide name, email, phone, address, date_of_joining, department_id.
+    retrieve: Get one employee by id.
+    update: Replace an employee (JWT required).
+    partial_update: Update some fields (JWT required).
+    destroy: Delete an employee (JWT required).
+    """
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]

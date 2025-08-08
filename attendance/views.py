@@ -6,6 +6,10 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 class AttendanceViewSet(viewsets.ModelViewSet):
+    """
+    list: List attendance. Filter by ?employee=, ?date=, ?status=. Order with ?ordering=-date.
+    create: Create attendance (JWT required).
+    """
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -15,6 +19,10 @@ class AttendanceViewSet(viewsets.ModelViewSet):
     ordering = ['-date']  # newest first
 
 class PerformanceViewSet(viewsets.ModelViewSet):
+    """
+    list: List performance reviews. Filter by ?employee=, ?rating=, ?review_date=.
+    create: Create a review (JWT required).
+    """
     queryset = Performance.objects.all()
     serializer_class = PerformanceSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
