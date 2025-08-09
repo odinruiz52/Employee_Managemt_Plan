@@ -1,0 +1,84 @@
+<!-- templates/charts.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Employee Analytics Dashboard</title>
+  <!-- Pull Chart.js from CDN (no local install needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Tiny styling so it doesn't look bare */
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    h1 { margin-bottom: 8px; }
+    .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; }
+    canvas { width: 100% !important; height: auto !important; }
+    @media (max-width: 900px) { .wrap { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <h1>Employee Analytics Dashboard</h1>
+  <p>Live counts from your database (seeded data).</p>
+
+  <div class="wrap">
+    <div class="card">
+      <h3>Employees per Department</h3>
+      <canvas id="deptPie"></canvas>
+    </div>
+    <div class="card">
+      <h3>Monthly Attendance (last 12 months)</h3>
+      <canvas id="attendanceBar"></canvas>
+    </div>
+  </div>
+
+  <script>
+    // Data passed from Django view as JSON strings
+    const pieLabels = {{ pie_labels_json|safe }};
+    const pieData   = {{ pie_data_json|safe }};
+    const barLabels = {{ bar_labels_json|safe }};
+    const barDatasets = {{ bar_datasets_json|safe }};
+
+    // Pie chart
+    const pieCtx = document.getElementById('deptPie').getContext('2d');
+    new Chart(pieCtx, {
+      type: 'pie',
+      data: {
+        labels: pieLabels,
+        datasets: [{
+          data: pieData
+          // No custom colors; Chart.js picks defaults
+        }]
+      },
+        options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 1, 
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+
+    // Bar chart
+    const barCtx = document.getElementById('attendanceBar').getContext('2d');
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: barLabels,
+        datasets: barDatasets
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: { position: 'top' }
+        },
+        scales: {
+          x: { stacked: true },  // stacks Present/Absent/Late for each month
+          y: { stacked: true, beginAtZero: true }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
