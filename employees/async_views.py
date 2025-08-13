@@ -119,7 +119,18 @@ async def async_department_analytics(request):
 async def generate_employee_report():
     """
     Generate comprehensive employee report with multiple data sources.
-    This function processes different data sources concurrently.
+    This function processes different data sources concurrently for better performance.
+    
+    Returns:
+        dict: Complete employee report containing:
+            - employee_statistics: Total, active, and inactive employee counts
+            - attendance_summary: Attendance status breakdown for last 30 days
+            - performance_summary: Performance rating distribution
+            - department_distribution: Employee count per department
+            - generated_at: Timestamp when report was created
+            
+    Uses asyncio.gather() to run multiple database queries concurrently,
+    significantly improving response time compared to sequential execution.
     """
     # Create concurrent tasks for different data sources
     tasks = [
@@ -191,6 +202,19 @@ async def process_department_analytics(department_id):
     """
     Process analytics for a single department.
     This can be run concurrently for multiple departments.
+    
+    Args:
+        department_id (int): The unique ID of the department to analyze
+        
+    Returns:
+        dict: Analytics data containing:
+            - department_name: Name of the department
+            - employee_count: Number of active employees
+            - attendance_count_30_days: Total attendance records in last 30 days
+            - attendance_rate_percentage: Calculated attendance rate as percentage
+            
+    This function calculates the attendance rate by comparing actual attendance
+    records against expected attendance (employee_count * 30 days).
     """
     # Get department info
     dept = await sync_to_async(Department.objects.get)(id=department_id)
