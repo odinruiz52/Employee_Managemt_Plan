@@ -1,0 +1,22 @@
+[flake8]
+max-line-length = 127
+max-complexity = 10
+exclude = 
+    .git,
+    __pycache__,
+    migrations,
+    venv,
+    .venv,
+    env,
+    .env,
+    node_modules,
+    .pytest_cache,
+    htmlcov
+
+ignore = 
+    E203,  # whitespace before ':'
+    W503,  # line break before binary operator
+    F401,  # imported but unused (in __init__.py files)
+
+per-file-ignores =
+    __init__.py:F401

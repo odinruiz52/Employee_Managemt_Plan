@@ -1,0 +1,33 @@
+ERROR 2025-08-12 20:07:55,350 log Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\odinr\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\odinr\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\odinr\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\odinr\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+ERROR 2025-08-12 20:07:55,916 log Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\odinr\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\odinr\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\odinr\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\odinr\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-08-12 20:08:16,030 log Unauthorized: /api/employees/
+WARNING 2025-08-12 20:08:38,891 log Bad Request: /api/employees/employees/
+INFO 2025-08-12 20:08:54,618 <string> Testing custom logging for employees app
+INFO 2025-08-12 20:08:54,619 <string> Testing custom logging for attendance app
+WARNING 2025-08-12 20:08:54,619 <string> Testing Django logger
+WARNING 2025-08-12 20:47:36,103 log Method Not Allowed: /api/v1/auth/token/
+WARNING 2025-08-12 20:47:52,292 log Unauthorized: /api/employees/
+WARNING 2025-08-12 20:47:52,293 log Unauthorized: /api/employees/
+WARNING 2025-08-12 20:47:52,294 log Unauthorized: /api/employees/
+WARNING 2025-08-12 20:47:52,294 log Unauthorized: /api/employees/
+WARNING 2025-08-12 20:47:52,295 log Unauthorized: /api/employees/
