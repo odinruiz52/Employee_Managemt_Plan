@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'django_filters',
+    'safedelete',  # Soft delete functionality
 
     # Custom apps
     'employees',
@@ -61,6 +62,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.gzip.GZipMiddleware',  # Compress responses
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -68,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'employee_project.middleware.RateLimitMiddleware',  # Custom rate limiting
+    'employees.audit.AuditMiddleware',  # Audit logging
 ]
 
 ROOT_URLCONF = 'employee_project.urls'
@@ -145,6 +148,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Compression settings
+USE_GZIP = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -235,6 +241,11 @@ LOGGING = {
             'propagate': False,
         },
         'attendance': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'audit': {
             'handlers': ['file', 'console'],
             'level': 'INFO',
             'propagate': False,

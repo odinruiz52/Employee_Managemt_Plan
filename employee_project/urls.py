@@ -4,6 +4,7 @@ from rest_framework import permissions  # For Swagger UI permissions
 from drf_yasg.views import get_schema_view  # Swagger schema view
 from drf_yasg import openapi  # OpenAPI info
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView  # JWT views
+from employees.health import health_check, detailed_health_check, readiness_check, liveness_check
 
 
 # Swagger Schema Configuration
@@ -50,4 +51,10 @@ urlpatterns = [
 
     # Reports (charts)
     path('', include('reports.urls')),  # adds /dashboard/
+    
+    # Health check endpoints
+    path('health/', health_check, name='health_check'),
+    path('health/detailed/', detailed_health_check, name='detailed_health_check'),
+    path('health/ready/', readiness_check, name='readiness_check'),
+    path('health/live/', liveness_check, name='liveness_check'),
 ]

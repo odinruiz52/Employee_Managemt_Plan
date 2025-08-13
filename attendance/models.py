@@ -1,9 +1,10 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from employees.models import Employee
+from employees.mixins import BaseModel
 
 # Attendance model to track daily attendance status of employees
-class Attendance(models.Model):
+class Attendance(BaseModel):
     STATUS_CHOICES = [
         ('Present', 'Present'),
         ('Absent', 'Absent'),
@@ -27,7 +28,7 @@ class Attendance(models.Model):
         return f"{self.employee.name} - {self.date} - {self.status}"  # Display attendance summary
 
 # Performance model to store employee performance ratings
-class Performance(models.Model):
+class Performance(BaseModel):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     rating = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)],

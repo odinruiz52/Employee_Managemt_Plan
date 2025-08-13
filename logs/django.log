@@ -31,3 +31,11 @@ WARNING 2025-08-12 20:47:52,293 log Unauthorized: /api/employees/
 WARNING 2025-08-12 20:47:52,294 log Unauthorized: /api/employees/
 WARNING 2025-08-12 20:47:52,294 log Unauthorized: /api/employees/
 WARNING 2025-08-12 20:47:52,295 log Unauthorized: /api/employees/
+ERROR 2025-08-12 20:56:43,130 health Database health check failed: column employees_employee.deleted does not exist
+LINE 1: ...T(*) AS "__count" FROM "employees_employee" WHERE "employees...
+                                                             ^
+
+ERROR 2025-08-12 20:56:43,131 health Models health check failed: column employees_department.deleted does not exist
+LINE 1: ...*) AS "__count" FROM "employees_department" WHERE "employees...
+                                                             ^
+
