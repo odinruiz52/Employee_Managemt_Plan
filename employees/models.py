@@ -19,5 +19,13 @@ class Employee(models.Model):
         related_name='employees'  # allows reverse lookup: department.employees.all()
     )
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['department']),
+            models.Index(fields=['date_of_joining']),
+            models.Index(fields=['email']),
+            models.Index(fields=['name']),
+        ]
+
     def __str__(self):
         return self.name  # Display employee name in admin and queries
